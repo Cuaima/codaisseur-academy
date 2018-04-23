@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>parkaWeather</title>
+</head>
+<body>
+    
+</body>
+<script>
+var currentTemp = prompt("What's the current temperature?");
+
+document.write(`<p>The current temperature is ${currentTemp} C.</p>`);
+
+if ( currentTemp < 5 ) {
+    document.write("It is parka weather!");
+} else if ( 4 < currentTemp && currentTemp < 18 ) {
+    document.write("It is jacket weather.");
+} else {
+    document.write("It is T-Shirt weather.");
+}
+</script>
+</html>
