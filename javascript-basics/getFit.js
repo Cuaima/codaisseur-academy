@@ -6,6 +6,8 @@ var age = 43,
     exerciseLevel = 3;
 
 
+
+
 //calculate Body Mass Index
 var bmi = weight / Math.pow(height / 100, 2);
 
