@@ -21,7 +21,9 @@ yarn-debug.log*
 yarn-error.log*
 
 
+*.swp
 **.swp
+**/*.swp
 **.swo
 **.vim
 .undodir
