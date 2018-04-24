@@ -1,12 +1,27 @@
 // hardcoded data
-var age = 43,
-    gender = "m",
-    height = 180, 
-    weight = 78, 
-    exerciseLevel = 3;
+//var age = 43,
+    //gender = "m",
+    //height = 180, 
+    //weight = 78, 
+    //exerciseLevel = 3;
+
+// interactive console using readline-sync
+
+var rl = require('readline-sync');
+
+console.log(`==================================
+Please enter your details!`);
+
+var age = rl.question('Age: ');
+
+var gender = rl.question('Gender (f/m): ');
+
+var height = rl.question('Height (cm): ');
+
+var weight = rl.question('Weight (kg): ');
 
 
-
+var exerciseLevel = rl.question('Exercise level (1 - 5): ');
 
 //calculate Body Mass Index
 var bmi = weight / Math.pow(height / 100, 2);
@@ -33,24 +48,28 @@ switch (gender) {
 
 
 // calculate calories per day using BMR / ideal BMR and activity level
+
+let caloriesPerDay;
+let iCaloriesPerDay;
+
 switch (exerciseLevel) {
-    case 1:
+    case "1":
         caloriesPerDay = bmr * 1.2;
         iCaloriesPerDay = iBmr * 1.2;
         break;
-    case 2:
+    case "2":
         caloriesPerDay = bmr * 1.375;
         iCaloriesPerDay = iBmr * 1.375;
         break;
-    case 3:
+    case "3":
         caloriesPerDay = bmr * 1.55;
         iCaloriesPerDay = iBmr * 1.55;
         break;
-    case 4:
+    case "4":
         caloriesPerDay = bmr * 1.725;
         iCaloriesPerDay = iBmr * 1.725;
         break;
-    case 5:
+    case "5":
         caloriesPerDay = bmr * 1.9;
         iCaloriesPerDay = iBmr * 1.9;
         break;
@@ -68,9 +87,11 @@ if (weight > idealWeight) {
 
 
 
-console.log(`Your BMI is ${bmi.toFixed(2)}`);
+console.log(`===============================================
+Your BMI is ${bmi.toFixed(2)}`);
 console.log(`Ideal wight: ${idealWeight}`);
 console.log(`Calories to maintain current weight: ${caloriesPerDay}`);
 console.log(`Calories to lose weight: ${dietCaloriesPerDay} for ${dietWeeks.toFixed(2)} weeks`);
-console.log(`Calories to maintain ideal weight: ${Math.floor(iCaloriesPerDay)}`);
+console.log(`Calories to maintain ideal weight: ${Math.floor(iCaloriesPerDay)}
+===============================================`);
 
