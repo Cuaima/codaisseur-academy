@@ -76,7 +76,6 @@ var displayProductsFromShoppingCart = function() {
         cartElement.appendChild(cartRefNr);
         cartElement.appendChild(cartName);
         cartElement.appendChild(cartPrice);
-
         document.getElementById('shopping-cart').insertBefore(cartElement, document.getElementById('cart-price'));        
     }
   // use the printProductsOnScreen function for inspiration
