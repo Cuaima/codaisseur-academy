@@ -55,9 +55,9 @@
       </div>
       <div class="control">
         <h2>Spacing</h2>
-        <p>Text size: <input id="textsize" type="text" name="textsize" value="16" size="5"></p>
-        <p>Line height: <input id="lineheight" type="text" name="lineheight" value="18" size="5"></p>
-        <p>Padding: <input id="textpadding" type="text" name="textpadding" value="10" size="5"></p>
+        <p>Text size: <input id="textsize" type="text" name="textsize" value="16" size="5" maxlength=3></p>
+        <p>Line height: <input id="lineheight" type="text" name="lineheight" value="18" size="5" maxlength=3></p>
+        <p>Padding: <input id="textpadding" type="text" name="textpadding" value="10" size="5" maxlength=3></p>
 
       </div>
     </div>
@@ -87,15 +87,15 @@
 
             <!--initiating array to store up to 3 hex chars, will be used for setting color once its valid-->
             var textColor = ['0', '0', '0'];
-            var bgColor = ['0', '0', '0'];
+            var bgColor = ['f', 'f', 'f'];
         $('#textcolor').keydown(function(e) {
-            setOnKeydown(textColor, e, 'text');
+            setColorOnKeydown(textColor, e, 'text');
 
         });
         $('#bgcolor').keydown(function(e) {
-            setOnKeydown(bgColor, e, 'bg');
+            setColorOnKeydown(bgColor, e, 'bg');
         });
-        function setOnKeydown(colorToChange, e, caller) {
+        function setColorOnKeydown(colorToChange, e, caller) {
 
             <!--checking keydown input - allowing only valid hex chars to be entered-->
             if ( (48 <= e.keyCode && e.keyCode <= 57) || (65 <= e.keyCode && e.keyCode <= 70) ) {
@@ -116,15 +116,31 @@
             }
         }
 
+        var textSize = ['1', '6'];
+        var lineHeight = ['1', '8'];
+        var paddingVal = ['1', '0'];
 
-        $('#textsize').change(function(e) {
-            selectCanvas.css('font-size', e.target.value + "px");
+        function setSpacingOnKeydown(paramToChange, e, caller) {
+            if ( 48 <= e.keyCode && e.keyCode <= 57 ) {
+                if (paramToChange.length < 3) {
+                    paramToChange.push(e.key);
+                } 
+                selectCanvas.css(caller, paramToChange.join('') + "px");
+            }
+            if ( e.keyCode == 8 ) {
+                    paramToChange.pop();
+                    selectCanvas.css(caller, paramToChange.join('') + "px");
+                }
+        }
+
+        $('#textsize').keydown(function(e) {
+            setSpacingOnKeydown(textSize, e, 'font-size');
         });
-        $('#lineheight').change(function(e) {
-            selectCanvas.css('line-height', e.target.value + "px");
+        $('#lineheight').keydown(function(e) {
+            setSpacingOnKeydown(lineHeight, e, 'line-height');
         });
-        $('#textpadding').change(function(e) {
-            selectCanvas.css('padding', e.target.value + "px");
+        $('#textpadding').keydown(function(e) {
+            setSpacingOnKeydown(paddingVal, e, 'padding');
         });
     });
 </script>
