@@ -29,6 +29,11 @@
       list-style: none;
       padding: 0;
     }
+    .text-control {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
   </style>
     <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
 </head>
@@ -61,6 +66,12 @@
         <p>Padding: <input id="textpadding" type="text" name="textpadding" value="10" size="5" maxlength=3></p>
 
       </div>
+    </div>
+    <div class="text-control">
+        <h2>Text</h2>
+        <p>underlined <input id="underlined" type="checkbox" name="text-underline"></p> 
+        <p>small-caps <input id="smallcaps" type="checkbox" name="text-smallcaps"></p> 
+        <p>bold <input id="bold" type="checkbox" name="text-bold"></p> 
     </div>
     </form>
 
@@ -142,6 +153,24 @@
         });
         $('#textpadding').keydown(function(e) {
             setSpacingOnKeydown(paddingVal, e, 'padding');
+        });
+
+        $('#underlined').change(function(e) {
+            this.checked ? 
+                selectCanvas.css('text-decoration', 'underline') : 
+                selectCanvas.css('text-decoration', 'none');
+        });
+
+        $('#smallcaps').change(function(e) {
+            this.checked ? 
+                selectCanvas.css('font-variant', 'small-caps') : 
+                selectCanvas.css('font-variant', 'normal');
+        });
+
+        $('#bold').change(function(e) {
+            this.checked ? 
+                selectCanvas.css('font-weight', 'bold') : 
+                selectCanvas.css('font-weight', 'normal');
         });
     });
 </script>
