@@ -17,8 +17,6 @@
     }
     #canvas {
       border: 1px dashed #000;
-      padding: 10px;
-      font: 16px/18px "times new roman", times, serif;
     }
     #controls {
       display: -webkit-flex;
@@ -74,8 +72,14 @@
     $(document).ready(function() {
 
         <!--improvement #1 - storing jquery selector in a variable so that it does not get called multiple times-->
-
         var selectCanvas = $('#canvas')
+
+        <!--improvement #2 - setting intial style of canvas at page load here so the style tags can be removed-->
+
+        selectCanvas.css('padding', '10px');
+        selectCanvas.css('font', '16px/18px "times new roman", times, serif');
+
+
         $('input[type=radio][name=fontname]').change(function(e) {
             selectCanvas.css('font-family', e.target.value);
         });
