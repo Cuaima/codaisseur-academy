@@ -50,8 +50,8 @@
       </div>
       <div class="control">
         <h2>Color</h2>
-        <p>Text: <input id="textcolor" type="text" name="textcolor" value="#000" size="7"></p>
-        <p>Background: <input id="bgcolor" type="text" name="bgcolor" value="#fff" size="7"></p>
+        <p>Text: #<input id="textcolor" type="text" name="textcolor" value="000" size="7" maxlength=3></p>
+        <p>Background: #<input id="bgcolor" type="text" name="bgcolor" value="fff" size="7" maxlength=3></p>
       </div>
       <div class="control">
         <h2>Spacing</h2>
@@ -83,12 +83,40 @@
         $('input[type=radio][name=fontname]').change(function(e) {
             selectCanvas.css('font-family', e.target.value);
         });
-        $('#textcolor').change(function(e) {
-          selectCanvas.css('color', e.target.value);
+
+
+            <!--initiating array to store up to 3 hex chars, will be used for setting color once its valid-->
+            var textColor = ['0', '0', '0'];
+            var bgColor = ['0', '0', '0'];
+        $('#textcolor').keydown(function(e) {
+            setOnKeydown(textColor, e, 'text');
+
         });
-        $('#bgcolor').change(function(e) {
-            selectCanvas.css('background-color', e.target.value);
+        $('#bgcolor').keydown(function(e) {
+            setOnKeydown(bgColor, e, 'bg');
         });
+        function setOnKeydown(colorToChange, e, caller) {
+
+            <!--checking keydown input - allowing only valid hex chars to be entered-->
+            if ( (48 <= e.keyCode && e.keyCode <= 57) || (65 <= e.keyCode && e.keyCode <= 70) ) {
+                if (colorToChange.length < 3) {
+                    colorToChange.push(e.key);
+                console.log(colorToChange)
+                }
+            } else if ( e.keyCode == 8 ) {
+                <!--handling backspace event - popping last element of colorToChange array-->
+                colorToChange.pop();
+                console.log(colorToChange)
+            }
+
+            if (colorToChange.length == 3 && caller=='text') {
+                selectCanvas.css('color', "#" + colorToChange.join(''));
+            } else if (colorToChange.length == 3 && caller=='bg') {
+                selectCanvas.css('background-color', "#" + colorToChange.join(''));
+            }
+        }
+
+
         $('#textsize').change(function(e) {
             selectCanvas.css('font-size', e.target.value + "px");
         });
