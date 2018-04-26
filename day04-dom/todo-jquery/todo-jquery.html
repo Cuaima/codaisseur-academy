@@ -113,12 +113,17 @@
     }
 
     function toggleDone() {
+        <!--console.log('toggledone fired')-->
       var checkbox = this;
-
       $(checkbox).parent().toggleClass("completed");
+        updateCounters();
     }
 
-    updateCounters();
+    $(document).ready(function() {
+      $("input[type=checkbox]").on('change', toggleDone);
+        updateCounters();
+    });
+
   </script>
 </body>
 </html>
