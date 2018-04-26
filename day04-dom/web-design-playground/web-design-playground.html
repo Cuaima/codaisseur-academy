@@ -34,6 +34,10 @@
         justify-content: space-between;
         align-items: center;
     }
+    p {
+        margin-top: 0.1rem;
+        margin-bottom: 0;
+    }
   </style>
     <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
 </head>
@@ -62,8 +66,11 @@
       <div class="control">
         <h2>Spacing</h2>
         <p>Text size: <input id="textsize" type="text" name="textsize" value="16" size="5" maxlength=3></p>
+        <input id="sizeRange" value=16 type="range" class="slider" oninput="textSlider()">
         <p>Line height: <input id="lineheight" type="text" name="lineheight" value="18" size="5" maxlength=3></p>
+        <input id="lineRange" value=18 type="range" class="slider" oninput="lineSlider()">
         <p>Padding: <input id="textpadding" type="text" name="textpadding" value="10" size="5" maxlength=3></p>
+        <input id="padRange" value=10 type="range" class="slider" oninput="padSlider()">
 
       </div>
     </div>
@@ -81,10 +88,11 @@
 
   </div>
 <script>
+
+        var selectCanvas = $('#canvas')
     $(document).ready(function() {
 
         <!--improvement #1 - storing jquery selector in a variable so that it does not get called multiple times-->
-        var selectCanvas = $('#canvas')
 
         <!--improvement #2 - setting intial style of canvas at page load here so the style tags can be removed-->
 
@@ -148,13 +156,21 @@
         $('#textsize').keydown(function(e) {
             setSpacingOnKeydown(textSize, e, 'font-size');
         });
+        $('#textsize').keyup(function(e) {
+            $('#sizeRange').val(this.value)
+        })
         $('#lineheight').keydown(function(e) {
             setSpacingOnKeydown(lineHeight, e, 'line-height');
         });
+        $('#lineheight').keyup(function(e) {
+            $('#lineRange').val(this.value)
+        })
         $('#textpadding').keydown(function(e) {
             setSpacingOnKeydown(paddingVal, e, 'padding');
         });
-
+        $('#textpadding').keyup(function(e) {
+            $('#padRange').val(this.value)
+        })
         $('#underlined').change(function(e) {
             this.checked ? 
                 selectCanvas.css('text-decoration', 'underline') : 
@@ -172,7 +188,25 @@
                 selectCanvas.css('font-weight', 'bold') : 
                 selectCanvas.css('font-weight', 'normal');
         });
+
     });
+
+        function textSlider() {
+            console.log( $('#sizeRange')[0].value.toString().split('') )
+            selectCanvas.css('font-size', $('#sizeRange')[0].value + "px")
+            $('#textsize').val($('#sizeRange')[0].value) 
+        }
+
+        function lineSlider() {
+            console.log( $('#lineRange')[0].value.toString().split('') )
+            selectCanvas.css('line-height', $('#lineRange')[0].value + "px")
+            $('#lineheight').val($('#lineRange')[0].value) 
+        }
+        function padSlider() {
+            console.log( $('#padRange')[0].value.toString().split('') )
+            selectCanvas.css('padding', $('#padRange')[0].value + "px")
+            $('#textpadding').val($('#padRange')[0].value) 
+        }
 </script>
 </body>
 </html>
