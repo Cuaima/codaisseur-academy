@@ -97,6 +97,7 @@
       Todo: <span id="todo-count">1</span> •
       Done: <span id="completed-count">0</span> •
       Total: <span id="total-count">1</span>
+        <a href="#" onclick="cleanUpDoneTodos(); return false">Clean up</a>
     </div>
   </div>
 
@@ -181,7 +182,17 @@
         function nextTodoId() {
           return document.getElementsByClassName("todo").length + 1;
         }
+        function cleanUpDoneTodos() {
+          var list = document.getElementById("todolist");
+          var doneItems = document.getElementsByClassName("completed");
 
+          // Reverse loop through the done todo items so we can remove them without changing the index of the remaining items when we remove them
+          for (var i = doneItems.length; i > 0; i--) {
+            list.removeChild(doneItems[i-1]);
+          }
+
+           updateCounters();
+        }
         updateCounters();
   </script>
 
