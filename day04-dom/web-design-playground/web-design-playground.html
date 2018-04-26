@@ -32,6 +32,7 @@
       padding: 0;
     }
   </style>
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
 </head>
 <body>
   <div id="container">
@@ -70,7 +71,26 @@
 
   </div>
 <script>
-// JavaScript goes here.
+    $(document).ready(function() {
+        $('input[type=radio][name=fontname]').change(function(e) {
+            $('#canvas').css('font-family', e.target.value);
+        });
+        $('#textcolor').change(function(e) {
+          $('#canvas').css('color', e.target.value);
+        });
+        $('#bgcolor').change(function(e) {
+            $('#canvas').css('background-color', e.target.value);
+        });
+        $('#textsize').change(function(e) {
+            $('#canvas').css('font-size', e.target.value + "px");
+        });
+        $('#lineheight').change(function(e) {
+            $('#canvas').css('line-height', e.target.value + "px");
+        });
+        $('#textpadding').change(function(e) {
+            $('#canvas').css('padding', e.target.value + "px");
+        });
+    });
 </script>
 </body>
 </html>
