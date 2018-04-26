@@ -17,8 +17,6 @@
     }
     #canvas {
       border: 1px dashed #000;
-      padding: 10px;
-      font: 16px/18px "times new roman", times, serif;
     }
     #controls {
       display: -webkit-flex;
@@ -30,6 +28,15 @@
     .control ul {
       list-style: none;
       padding: 0;
+    }
+    .text-control {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    p {
+        margin-top: 0.1rem;
+        margin-bottom: 0;
     }
   </style>
     <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
@@ -48,49 +55,166 @@
           <li><label><input type="radio" name="fontname" value="georgia"> Georgia</label></li>
           <li><label><input type="radio" name="fontname" value="times" checked> Times New Roman</label></li>
           <li><label><input type="radio" name="fontname" value="verdana"> Verdana</label></li>
+          <li><label><input type="radio" name="fontname" value="impact"> Impact</label></li>
         </ul>
       </div>
       <div class="control">
         <h2>Color</h2>
-        <p>Text: <input id="textcolor" type="text" name="textcolor" value="#000" size="7"></p>
-        <p>Background: <input id="bgcolor" type="text" name="bgcolor" value="#fff" size="7"></p>
+        <p>Text: #<input id="textcolor" type="text" name="textcolor" value="000" size="7" maxlength=3></p>
+        <p>Background: #<input id="bgcolor" type="text" name="bgcolor" value="fff" size="7" maxlength=3></p>
       </div>
       <div class="control">
         <h2>Spacing</h2>
-        <p>Text size: <input id="textsize" type="text" name="textsize" value="16" size="5"></p>
-        <p>Line height: <input id="lineheight" type="text" name="lineheight" value="18" size="5"></p>
-        <p>Padding: <input id="textpadding" type="text" name="textpadding" value="10" size="5"></p>
+        <p>Text size: <input id="textsize" type="text" name="textsize" value="16" size="5" maxlength=3></p>
+        <input id="sizeRange" value=16 type="range" class="slider" oninput="textSlider()">
+        <p>Line height: <input id="lineheight" type="text" name="lineheight" value="18" size="5" maxlength=3></p>
+        <input id="lineRange" value=18 type="range" class="slider" oninput="lineSlider()">
+        <p>Padding: <input id="textpadding" type="text" name="textpadding" value="10" size="5" maxlength=3></p>
+        <input id="padRange" value=10 type="range" class="slider" oninput="padSlider()">
 
       </div>
+    </div>
+    <div class="text-control">
+        <h2>Text</h2>
+        <p>underlined <input id="underlined" type="checkbox" name="text-underline"></p> 
+        <p>small-caps <input id="smallcaps" type="checkbox" name="text-smallcaps"></p> 
+        <p>bold <input id="bold" type="checkbox" name="text-bold"></p> 
     </div>
     </form>
 
     <div id="canvas">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </div>
+    <button type="button" onclick="exportStyle()">Export CSS</button>
+    <div id="cssOut"></div>
 
   </div>
 <script>
+
+        var selectCanvas = $('#canvas')
     $(document).ready(function() {
+
+        <!--improvement #1 - storing jquery selector in a variable so that it does not get called multiple times-->
+
+        <!--improvement #2 - setting intial style of canvas at page load here so the style tags can be removed-->
+
+        selectCanvas.css('padding', '10px');
+        selectCanvas.css('font', '16px/18px "times new roman", times, serif');
+
+
         $('input[type=radio][name=fontname]').change(function(e) {
-            $('#canvas').css('font-family', e.target.value);
+            selectCanvas.css('font-family', e.target.value);
         });
-        $('#textcolor').change(function(e) {
-          $('#canvas').css('color', e.target.value);
+
+
+            <!--initiating array to store up to 3 hex chars, will be used for setting color once its valid-->
+            var textColor = ['0', '0', '0'];
+            var bgColor = ['f', 'f', 'f'];
+        $('#textcolor').keydown(function(e) {
+            setColorOnKeydown(textColor, e, 'text');
+
         });
-        $('#bgcolor').change(function(e) {
-            $('#canvas').css('background-color', e.target.value);
+        $('#bgcolor').keydown(function(e) {
+            setColorOnKeydown(bgColor, e, 'bg');
         });
-        $('#textsize').change(function(e) {
-            $('#canvas').css('font-size', e.target.value + "px");
+        function setColorOnKeydown(colorToChange, e, caller) {
+
+            <!--checking keydown input - allowing only valid hex chars to be entered-->
+            if ( (48 <= e.keyCode && e.keyCode <= 57) || (65 <= e.keyCode && e.keyCode <= 70) ) {
+                if (colorToChange.length < 3) {
+                    colorToChange.push(e.key);
+                console.log(colorToChange)
+                }
+            } else if ( e.keyCode == 8 ) {
+                <!--handling backspace event - popping last element of colorToChange array-->
+                colorToChange.pop();
+                console.log(colorToChange)
+            }
+
+            if (colorToChange.length == 3 && caller=='text') {
+                selectCanvas.css('color', "#" + colorToChange.join(''));
+            } else if (colorToChange.length == 3 && caller=='bg') {
+                selectCanvas.css('background-color', "#" + colorToChange.join(''));
+            }
+        }
+
+        var textSize = ['1', '6'];
+        var lineHeight = ['1', '8'];
+        var paddingVal = ['1', '0'];
+
+        function setSpacingOnKeydown(paramToChange, e, caller) {
+            if ( 48 <= e.keyCode && e.keyCode <= 57 ) {
+                if (paramToChange.length < 3) {
+                    paramToChange.push(e.key);
+                } 
+                selectCanvas.css(caller, paramToChange.join('') + "px");
+            }
+            if ( e.keyCode == 8 ) {
+                    paramToChange.pop();
+                    selectCanvas.css(caller, paramToChange.join('') + "px");
+                }
+        }
+
+        $('#textsize').keydown(function(e) {
+            setSpacingOnKeydown(textSize, e, 'font-size');
         });
-        $('#lineheight').change(function(e) {
-            $('#canvas').css('line-height', e.target.value + "px");
+        $('#textsize').keyup(function(e) {
+            $('#sizeRange').val(this.value)
+        })
+        $('#lineheight').keydown(function(e) {
+            setSpacingOnKeydown(lineHeight, e, 'line-height');
         });
-        $('#textpadding').change(function(e) {
-            $('#canvas').css('padding', e.target.value + "px");
+        $('#lineheight').keyup(function(e) {
+            $('#lineRange').val(this.value)
+        })
+        $('#textpadding').keydown(function(e) {
+            setSpacingOnKeydown(paddingVal, e, 'padding');
         });
+        $('#textpadding').keyup(function(e) {
+            $('#padRange').val(this.value)
+        })
+        $('#underlined').change(function(e) {
+            this.checked ? 
+                selectCanvas.css('text-decoration', 'underline') : 
+                selectCanvas.css('text-decoration', 'none');
+        });
+
+        $('#smallcaps').change(function(e) {
+            this.checked ? 
+                selectCanvas.css('font-variant', 'small-caps') : 
+                selectCanvas.css('font-variant', 'normal');
+        });
+
+        $('#bold').change(function(e) {
+            this.checked ? 
+                selectCanvas.css('font-weight', 'bold') : 
+                selectCanvas.css('font-weight', 'normal');
+        });
+
     });
+
+        function textSlider() {
+            console.log( $('#sizeRange')[0].value.toString().split('') )
+            selectCanvas.css('font-size', $('#sizeRange')[0].value + "px")
+            $('#textsize').val($('#sizeRange')[0].value) 
+        }
+
+        function lineSlider() {
+            console.log( $('#lineRange')[0].value.toString().split('') )
+            selectCanvas.css('line-height', $('#lineRange')[0].value + "px")
+            $('#lineheight').val($('#lineRange')[0].value) 
+        }
+        function padSlider() {
+            console.log( $('#padRange')[0].value.toString().split('') )
+            selectCanvas.css('padding', $('#padRange')[0].value + "px")
+            $('#textpadding').val($('#padRange')[0].value) 
+        }
+
+
+        function exportStyle() {
+            console.log('click')
+            $('#cssOut').html( JSON.stringify( selectCanvas[0].style) )
+        }
 </script>
 </body>
 </html>
