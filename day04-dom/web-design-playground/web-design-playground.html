@@ -72,23 +72,27 @@
   </div>
 <script>
     $(document).ready(function() {
+
+        <!--improvement #1 - storing jquery selector in a variable so that it does not get called multiple times-->
+
+        var selectCanvas = $('#canvas')
         $('input[type=radio][name=fontname]').change(function(e) {
-            $('#canvas').css('font-family', e.target.value);
+            selectCanvas.css('font-family', e.target.value);
         });
         $('#textcolor').change(function(e) {
-          $('#canvas').css('color', e.target.value);
+          selectCanvas.css('color', e.target.value);
         });
         $('#bgcolor').change(function(e) {
-            $('#canvas').css('background-color', e.target.value);
+            selectCanvas.css('background-color', e.target.value);
         });
         $('#textsize').change(function(e) {
-            $('#canvas').css('font-size', e.target.value + "px");
+            selectCanvas.css('font-size', e.target.value + "px");
         });
         $('#lineheight').change(function(e) {
-            $('#canvas').css('line-height', e.target.value + "px");
+            selectCanvas.css('line-height', e.target.value + "px");
         });
         $('#textpadding').change(function(e) {
-            $('#canvas').css('padding', e.target.value + "px");
+            selectCanvas.css('padding', e.target.value + "px");
         });
     });
 </script>
