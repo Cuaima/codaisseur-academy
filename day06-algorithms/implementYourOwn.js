@@ -15,13 +15,29 @@ function kilometerToMile(km) {
 }
 
 
+// own version of map()
+
+const ownMap = (inArray, callback) => {
+    let outArray = []
+    for (let i=0; i<inArray.length; i++) {
+        if (callback) {
+             outArray[i] = callback(inArray[i]) 
+        } else {
+            outArray[i] = inArray[i]
+        }
+    }
+    return outArray
+}
 
 const routeInMilesRewritten = route => route.map( element => kilometerToMile(element) )
 console.log('===============================================================================');
 console.log("routeInMilesRewritten returns: ", JSON.stringify(routeInMilesRewritten(route1)))
-
+console.log("routeInMilesOwnMap returns: ", JSON.stringify(ownMap(route1, kilometerToMile)))
 // test
-console.log("new output is the same as old output: ");
+console.log("new output is the same as old output: ", compareOutputs( routeInMilesRewritten(route1), ownMap(route1, kilometerToMile)) );
+
+
+
 
 
 
@@ -33,6 +49,12 @@ console.log("longStretchesRewritten returns: ", JSON.stringify(longStretchesRewr
 
 // test
 console.log("new output is the same as old output: ");
+
+
+
+
+
+
 
 
 
