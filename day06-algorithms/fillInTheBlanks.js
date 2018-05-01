@@ -53,3 +53,17 @@ function longStretches(route) {
   }
   return res
 }
+
+
+function averageStretch(route) {
+  // <your solution here>
+    // reduce will return the summary of the elements of route array
+    // then divide that summary by the length of the elements array
+    // and return the resulting average
+    return route.reduce((a,b) => a+b) / route.length;
+}
+
+console.log('average kilometers per stretch:', averageStretch(route1))
+
+
+
