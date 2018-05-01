@@ -30,3 +30,16 @@ function showGuess(word, guesses) {
 
 console.log('test show guess 1:', showGuess('hello', ['l']) === '_ _ l l _')
 console.log('test show guess 2:', showGuess('hello', ['l', 'a', 'e']) === '_ e l l _')
+
+
+//Step Three
+//Write a function that takes a word, and an array of guesses, 
+//and returns if the player has won or not.
+
+function isWinner(word, guesses) {
+   return ( showGuess(word, guesses).split(' ').indexOf('_') == -1 )
+}
+
+
+console.log('test winner 1:', isWinner('hello', ['e', 'x']))
+console.log('test winner 2:', isWinner('hello', ['o', 'l', 'e', 'h']))
