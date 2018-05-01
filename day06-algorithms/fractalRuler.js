@@ -9,6 +9,8 @@
 
 function ruler(n) {
     if (n<=1) return '-'
+    // I drew a diagram to a paper to understand what I'm doing, 
+    // I can't clearly explain this in words :]
     return `${ruler(n-1)}\n${'-'.repeat(n)}\n${ruler(n-1)}`
 }
 
