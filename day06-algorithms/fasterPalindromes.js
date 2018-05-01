@@ -10,10 +10,11 @@
 //Hint: pass along an extra number to indicate the letter position to check.
 
 function palindrome(word, at) {
-  // ...
+
 }
+
 
 // test
 console.log('test palindrome 1:', palindrome('noon', 0))
 console.log('test palindrome 2:', palindrome('civic', 0))
-console.log('test palindrome 3:', !palindrome('test', 0))
+console.log('test palindrome 3:', palindrome('test', 0))
