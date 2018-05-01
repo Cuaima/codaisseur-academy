@@ -42,26 +42,52 @@ console.log("new output is the same as old output: ", compareOutputs( routeInMil
 
 
 
+// own version of filter()
 
-const longStretchesRewritten = route => route.filter(element => element > 2)
+const ownFilter = (inArray, callback) => {
+    let outArray = []
+    let outArrIndex = 0;
+    for (let i=0; i<inArray.length; i++) {
+        if (callback) {
+            if (callback(inArray[i])) {
+                outArray[outArrIndex] = inArray[i]
+                outArrIndex++
+            }
+        }
+    }
+    return outArray
+}
+
 console.log('===============================================================================');
-console.log("longStretchesRewritten returns: ", JSON.stringify(longStretchesRewritten(route1)))
+console.log('route1: ' , route1)
+console.log('regular Filter - elements larger than 2: ', route1.filter(a => a>2) )
+console.log('regular Filter - elements larger than 3: ', route1.filter(a => a>3) )
+console.log('ownFilter - elements larger than 2:      ', ownFilter(route1,(a => a>2 ) ) )
+console.log('ownFilter - elements larger than 3:      ', ownFilter(route1,(a => a>3 ) ) )
 
 // test
-console.log("new output is the same as old output: ");
+console.log("new output is the same as old output: ", compareOutputs( route1.filter(a=>a>2), ownFilter(route1, (a=>a>2)) ));
 
 
 
 
 
 
+// own version of reduce
 
+const ownReduce = inArray => {
+    let out = 0;
+    for (let i=0; i<inArray.length; i++) {
+        out += inArray[i]
+    }
+    return out
+}
 
 
 const totalRewritten = route => route.reduce((a,b) => a+b); 
 console.log('===============================================================================');
 console.log("totalRewritten returns: ", totalRewritten(route1));
-
+console.log("ownReduce returns:      ", ownReduce(route1));
 // test
-console.log("new output is the same as old output: ");
+console.log("new output is the same as old output: ", compareOutputs(totalRewritten(route1), ownReduce(route1)));
 console.log('===============================================================================');
