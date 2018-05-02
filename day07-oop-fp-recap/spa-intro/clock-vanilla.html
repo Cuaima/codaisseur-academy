@@ -42,54 +42,35 @@
         const mSpan = document.getElementById('minSpan')
         const sSpan = document.getElementById('secSpan')
                 
-        const startMin = new Date().getMinutes().toString()
-        const startHour = new Date().getHours().toString()
-        const startSec = new Date().getSeconds().toString()
-
-        <!--function setSec() {-->
-            <!--const sec = new Date().getSeconds().toString()-->
-            <!--sSpan.innerText = sec.length==1 ? `0${sec}` : `${sec}`-->
-            <!--setTimeout(setSec, 1000)-->
-        <!--}-->
-        <!--function setMin() {-->
-            <!--const min = new Date().getMinutes().toString()-->
-            <!--mSpan.innerText = min.length==1 ? `0${min}` : `${min}`-->
-            <!--setTimeout(setMin, 1000)-->
-        <!--}-->
-        <!--function setHour() {-->
-            <!--const hour = new Date().getHours().toString()-->
-            <!--hSpan.innerText = hour.length==1 ? `0${hour}` : `${hour}`-->
-            <!--setTimeout(setHour, 1000)-->
-        <!--}-->
-        <!--function updateTime() {-->
-            <!--setSec()-->
-            <!--setMin()-->
-            <!--setHour()-->
-        <!--}-->
-        <!--updateTime()-->
+        let startMin = new Date().getMinutes()
+        let startHour = new Date().getHours()
+        let startSec = new Date().getSeconds()
 
 function updateIfChanged() {
-            const hour = new Date().getHours().toString()
-            const min = new Date().getMinutes().toString()
-            const sec = new Date().getSeconds().toString()
+            const hour = new Date().getHours()
+            const min = new Date().getMinutes()
+            const sec = new Date().getSeconds()
           
     if (sec != startSec) {
-            sSpan.innerText = sec.length==1 ? `0${sec}` : `${sec}`
+            sSpan.innerText = sec.toString().length==1 ? `0${sec.toString()}` : `${sec.toString()}`
+            startSec += 1
     } 
     if (min != startMin) {
 
-            mSpan.innerText = min.length==1 ? `0${min}` : `${min}`
+            mSpan.innerText = min.toString().length==1 ? `0${min.toString()}` : `${min.toString()}`
+        startMin += 1
     }
     if (hour != startHour) {
 
-            hSpan.innerText = hour.length==1 ? `0${hour}` : `${hour}`
+            hSpan.innerText = hour.toString().length==1 ? `0${hour.toString()}` : `${hour.toString()}`
+        startHour += 1
     }
             setTimeout(updateIfChanged, 1000)
 }
 
-            hSpan.innerText = startHour.length==1 ? `0${startHour}` : `${startHour}`
-            mSpan.innerText = startMin.length==1 ? `0${startMin}` : `${startMin}`
-            sSpan.innerText = startSec.length==1 ? `0${startSec}` : `${startSec}`
+            hSpan.innerText = startHour.length==1 ? `0${startHour.toString()}` : `${startHour.toString()}`
+            mSpan.innerText = startMin.length==1 ? `0${startMin.toString()}` : `${startMin.toString()}`
+            sSpan.innerText = startSec.length==1 ? `0${startSec.toString()}` : `${startSec.toString()}`
 updateIfChanged()
 
    </script>
