@@ -92,4 +92,6 @@ function next(word, guesses) {
 //Step Five
 //Start the game and play!
 
-next('hello', [])
+//next('hello', [])
+next('reallylongword', [])
+
