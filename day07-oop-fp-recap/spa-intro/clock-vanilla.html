@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--Implement a clock using Javascript:-->
+<!--* implement a simple clock that shows hours, minutes and seconds-->
+<!--* make sure the hours are blue, the minutes are orange and the seconds are red-->
+<!--* optimize so that it doesn’t update all elements at the same time-->
+<!--Use plain html plus Javascript, you can use the code that I showed earlier-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <main>
+        <div id="clock">
+            <h1><span id="hourSpan"></span> : <span id="minSpan"></span> : <span id="secSpan"></span></h1>
+        </div>
+    </main>    
+    <script>
+        const hour = new Date().getHours().toString()
+        const min = new Date().getMinutes()
+        const sec = new Date().getSeconds()
+
+        const hSpan = document.getElementById('hourSpan')
+        const mSpan = document.getElementById('minSpan')
+        const sSpan = document.getElementById('secSpan')
+        
+function setText(el) {
+
+}
+        hSpan.innerText = hour
+        mSpan.innerText = min
+        sSpan.innerText = sec
+   </script>
+</body>
+</html>
