@@ -94,3 +94,4 @@ function next(word, guesses) {
 
 //next('hello', [])
 next('reallylongword', [])
+
