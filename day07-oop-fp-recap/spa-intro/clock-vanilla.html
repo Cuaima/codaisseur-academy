@@ -7,7 +7,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>Simple JS Clock</title>
+    <style>
+#hourSpan {
+    color: blue;
+}
+#minSpan {
+    color: orange;
+}
+#secSpan {
+    color: red;
+}
+    </style>
 </head>
 <body>
     <main>
@@ -17,19 +28,31 @@
     </main>    
     <script>
         const hour = new Date().getHours().toString()
-        const min = new Date().getMinutes()
-        const sec = new Date().getSeconds()
+        const min = new Date().getMinutes().toString()
+        const sec = new Date().getSeconds().toString()
 
         const hSpan = document.getElementById('hourSpan')
         const mSpan = document.getElementById('minSpan')
         const sSpan = document.getElementById('secSpan')
         
-function setText(el) {
-
+function setSec() {
+        sSpan.innerText = `${new Date().getSeconds().toString()}`
+        setTimeout(setSec, 1000)
 }
-        hSpan.innerText = hour
-        mSpan.innerText = min
-        sSpan.innerText = sec
+function setMin() {
+    mSpan.innerText = `${new Date().getMinutes().toString()}`
+    setTimeout(setMin, 1000)
+}
+function setHour() {
+    hSpan.innerText = `${new Date().getHours().toString()}`
+    setTimeout(setHour, 1000)
+}
+    function updateTime() {
+        setSec()
+        setMin()
+        setHour()
+    }
+updateTime()
    </script>
 </body>
 </html>
