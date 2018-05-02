@@ -9,18 +9,25 @@
     <meta charset="UTF-8">
     <title>Simple JS Clock</title>
     <style>
-h1 {
-    font-size: 72px;
-}
-#hourSpan {
-    color: blue;
-}
-#minSpan {
-    color: orange;
-}
-#secSpan {
-    color: red;
-}
+        main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100vw;
+            height: 100vh;
+        }
+        h1 {
+            font-size: 10rem;
+        }
+        #hourSpan {
+            color: blue;
+        }
+        #minSpan {
+            color: orange;
+        }
+        #secSpan {
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -34,28 +41,57 @@ h1 {
         const hSpan = document.getElementById('hourSpan')
         const mSpan = document.getElementById('minSpan')
         const sSpan = document.getElementById('secSpan')
-        
-function setSec() {
-        const sec = new Date().getSeconds().toString()
-    sSpan.innerText = sec.length==1 ? `0${sec}` : `${sec}`
-        setTimeout(setSec, 1000)
-}
-function setMin() {
-        const min = new Date().getMinutes().toString()
-    mSpan.innerText = min.length==1 ? `0${min}` : `${min}`
-    setTimeout(setMin, 1000)
-}
-function setHour() {
-    const hour = new Date().getHours().toString()
-    hSpan.innerText = hour.length==1 ? `0${hour}` : `${hour}`
-    setTimeout(setHour, 1000)
-}
-    function updateTime() {
-        setSec()
-        setMin()
-        setHour()
+                
+        const startMin = new Date().getMinutes().toString()
+        const startHour = new Date().getHours().toString()
+        const startSec = new Date().getSeconds().toString()
+
+        <!--function setSec() {-->
+            <!--const sec = new Date().getSeconds().toString()-->
+            <!--sSpan.innerText = sec.length==1 ? `0${sec}` : `${sec}`-->
+            <!--setTimeout(setSec, 1000)-->
+        <!--}-->
+        <!--function setMin() {-->
+            <!--const min = new Date().getMinutes().toString()-->
+            <!--mSpan.innerText = min.length==1 ? `0${min}` : `${min}`-->
+            <!--setTimeout(setMin, 1000)-->
+        <!--}-->
+        <!--function setHour() {-->
+            <!--const hour = new Date().getHours().toString()-->
+            <!--hSpan.innerText = hour.length==1 ? `0${hour}` : `${hour}`-->
+            <!--setTimeout(setHour, 1000)-->
+        <!--}-->
+        <!--function updateTime() {-->
+            <!--setSec()-->
+            <!--setMin()-->
+            <!--setHour()-->
+        <!--}-->
+        <!--updateTime()-->
+
+function updateIfChanged() {
+            const hour = new Date().getHours().toString()
+            const min = new Date().getMinutes().toString()
+            const sec = new Date().getSeconds().toString()
+          
+    if (sec != startSec) {
+            sSpan.innerText = sec.length==1 ? `0${sec}` : `${sec}`
+    } 
+    if (min != startMin) {
+
+            mSpan.innerText = min.length==1 ? `0${min}` : `${min}`
     }
-updateTime()
+    if (hour != startHour) {
+
+            hSpan.innerText = hour.length==1 ? `0${hour}` : `${hour}`
+    }
+            setTimeout(updateIfChanged, 1000)
+}
+
+            hSpan.innerText = startHour.length==1 ? `0${startHour}` : `${startHour}`
+            mSpan.innerText = startMin.length==1 ? `0${startMin}` : `${startMin}`
+            sSpan.innerText = startSec.length==1 ? `0${startSec}` : `${startSec}`
+updateIfChanged()
+
    </script>
 </body>
 </html>
