@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Do The Wave!</title>
+  
+  <style>
+    #waves {
+      display: flex;
+    }
+    .red-wave {
+      height: 500px;
+      width: 1px;
+      background-color: red;
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div id="waves"></div>  
+  </main>
+  
+  <script>
+  /*
+* change the color of the wave to green
+* change the app so that the wave is slower (1 move every 250 ms)
+* change the app so that the slices are 1 pixel apart, so there's whitespace between every slice
+  */
+    const container = document.getElementById('waves')
+    const total = 500
+    const range = Array.from(Array(total).keys())
+    
+    function draw() {
+      range.forEach(i => {
+        const el = document.createElement('div')
+        el.id = 'wave-' + i
+        el.className = 'red-wave'                
+        el.style.top = 0 + 'px'
+        el.style.left = 2*i + 'px'
+        
+        container.append(el)
+      })
+    }
+    
+    function redraw(n) {
+      range.forEach(i => {
+        const el = document.getElementById('wave-' + i)
+        const x = n === i ? 40 : 0
+        const newTop = x + 'px'
+        
+        if (el.style.top !== newTop) {
+          el.style.top = newTop
+          el.style.backgroundColor = 'green'
+        }
+
+      })
+      setTimeout(redraw, 250, n > total ? 0 : n + 1)
+    }
+    
+    draw()
+    redraw(1)
+  </script>
+</body>
+</html>
