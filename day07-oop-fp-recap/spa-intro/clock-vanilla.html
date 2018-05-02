@@ -46,32 +46,35 @@
         let startHour = new Date().getHours()
         let startSec = new Date().getSeconds()
 
-function updateIfChanged() {
+        function updateIfChanged() {
             const hour = new Date().getHours()
             const min = new Date().getMinutes()
             const sec = new Date().getSeconds()
-          
-    if (sec != startSec) {
-            sSpan.innerText = sec.toString().length==1 ? `0${sec.toString()}` : `${sec.toString()}`
-            startSec += 1
-    } 
-    if (min != startMin) {
+                  
+            if (sec != startSec) {
+                sSpan.innerText = sec.toString().length==1 ? `0${sec.toString()}` : `${sec.toString()}`
+                startSec += 1
+            } 
 
-            mSpan.innerText = min.toString().length==1 ? `0${min.toString()}` : `${min.toString()}`
-        startMin += 1
-    }
-    if (hour != startHour) {
+            if (min != startMin) {
+                mSpan.innerText = min.toString().length==1 ? `0${min.toString()}` : `${min.toString()}`
+                startMin += 1
+            }
 
-            hSpan.innerText = hour.toString().length==1 ? `0${hour.toString()}` : `${hour.toString()}`
-        startHour += 1
-    }
+            if (hour != startHour) {
+                hSpan.innerText = hour.toString().length==1 ? `0${hour.toString()}` : `${hour.toString()}`
+                startHour += 1
+            }
+
             setTimeout(updateIfChanged, 1000)
-}
+        }
 
-            hSpan.innerText = startHour.length==1 ? `0${startHour.toString()}` : `${startHour.toString()}`
-            mSpan.innerText = startMin.length==1 ? `0${startMin.toString()}` : `${startMin.toString()}`
-            sSpan.innerText = startSec.length==1 ? `0${startSec.toString()}` : `${startSec.toString()}`
-updateIfChanged()
+        hSpan.innerText = startHour.toString().length==1 ? `0${startHour.toString()}` : `${startHour.toString()}`
+        mSpan.innerText = startMin.toString().length==1 ? `0${startMin.toString()}` : `${startMin.toString()}`
+        sSpan.innerText = startSec.toString().length==1 ? `0${startSec.toString()}` : `${startSec.toString()}`
+
+
+        updateIfChanged()
 
    </script>
 </body>
