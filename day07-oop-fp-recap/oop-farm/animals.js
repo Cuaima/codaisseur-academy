@@ -15,7 +15,7 @@ class Pig extends Animal {
         this.price = 4        
     }
     getWeightInKg() {
-        return this.age * 2.3
+        return Math.min(this.age * 2.3, 700)
     }
 }
 
@@ -26,7 +26,7 @@ class Cow extends Animal {
         this.price = 5 
     }
     getWeightInKg() {
-        return this.age * 1.5 
+        return Math.min(this.age * 1.5, 1200)
     }
 }
 
@@ -37,7 +37,7 @@ class Horse extends Animal {
         this.price = 10
     }
     getWeightInKg() {
-        return this.age * 1.7
+        return Math.min(this.age * 1.7, 1000)
     }
 }
 
