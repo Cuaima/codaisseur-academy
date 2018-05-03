@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react'
 import Title from '../components/Title'
 import Player, { playerShape } from '../components/Player'
-import Podium from './Podium'
 import PropTypes from 'prop-types'
 import './Board.css'
 
@@ -16,17 +15,18 @@ export default class Board extends PureComponent {
     return (
       <div>
         <Title content="Scoreboard" />
-        <Podium players={players}/>
         <ul className="Board">
-          {players.map((player, index) => (
+          {players
+              .sort((a,b) => {
+                          return (a.score > b.score) ? -1 : 1
+              })
+              .map((player, index) => (
             <Player 
               key={index} 
               onChange={updatePlayer}
               { ...player } 
             />
-          )).sort((a,b) => {
-            return (a.props.score > b.props.score) ? -1 : 1
-          })}
+          ))}
         </ul>
       </div>
     )
