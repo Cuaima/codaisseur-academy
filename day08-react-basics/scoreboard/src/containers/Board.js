@@ -18,15 +18,16 @@ export default class Board extends PureComponent {
         <ul className="Board">
           {players
               .sort((a,b) => {
-                          return (a.score > b.score) ? -1 : 1
+                return (a.score >= b.score) ? -1 : 1
               })
               .map((player, index) => (
-            <Player 
-              key={index} 
-              onChange={updatePlayer}
-              { ...player } 
-            />
-          ))}
+                <Player 
+                  key={index} 
+                  onChange={updatePlayer}
+                  { ...player } 
+                />
+              ))
+          }
         </ul>
       </div>
     )
