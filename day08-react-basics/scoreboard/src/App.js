@@ -4,7 +4,9 @@ import Title from './components/Title';
 class App extends Component {
   render() {
     return (
-      <Title content="Hello, World"/>
+      <div>
+        <Title content="Scoreboard"/>
+      </div>
     );
   }
 }
